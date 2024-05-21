@@ -15,9 +15,3 @@ model Address {
   updatedAt     DateTime @updatedAt
 }
 
-model MasterKey {
-  id               String   @id @default(auto()) @map("_id") @db.ObjectId
-  masterPrivateKey String
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
-}
