@@ -25,7 +25,9 @@ export default async function handler(req, res) {
   }
   try {
     const ifExist = await DAOHandler.methods.ngoRegistrationNo(address).call();
-    return res.status(200).json({ Address: address,ngoExist: ifExist });
+    return res
+      .status(200)
+      .json({ Address: address, ngoExist: ifExist.toString() });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: error.message });
