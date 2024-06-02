@@ -2,7 +2,7 @@
 
 import Web3 from "web3";
 import DAOhandlerApi from "../../../../abi/DAOHandler.json";
-
+import TokenAPI from "../../../../abi/TokenContract.json";
 const providerURL = process.env.RPC_URL; // Your RPC URL
 const privateKey = process.env.SuperPrivateKey; // Your private key
 const contractAddress = process.env.DAO_Token_Contract; // Your contract address
@@ -25,35 +25,49 @@ export default async function handler(req, res) {
       .status(400)
       .json({ error: "NGO registration number and address are required." });
   }
-  
+
   try {
     const DAOHandler = new web3.eth.Contract(contractABI, contractAddress);
+    const tokenContract = new web3.eth.Contract(TokenAPI.abi, contractAddress);
 
 
     const ifExist = await DAOHandler.methods
       .ngoNumberExist(ngoRegisterationNo)
       .call();
-    const ifAddressExist = await DAOHandler.methods
-      .ngoRegistrationNo(address)
-      .call();
-    const ngoExist = ifAddressExist !== "0";
 
 
-    if (ifExist || ngoExist) {
+    if (!ifExist) {
       return res.status(400).json({
-          error: "NGO registration number or address already exists.",
-        });
+        error: "NGO is Not Registered yet! Cannot vote for it.",
+      });
     }
-    
+
+  const balance = await tokenContract.methods.balanceOf(address).call();
+  const balanceInEther = web3.utils.fromWei(balance, "ether");
+
+  if (parseFloat(balanceInEther) < 1) {
+    return res
+      .status(400)
+      .json({ error: "Balance must be atleast 1 token or greater." });
+  }
+
+   const ifVoted = await DAOHandler.methods
+     .ngoVoters(address, ngoNumber)
+     .call();
+
+    if(ifVoted){
+      return res.status(400).json({error: "You have already voted for the NGO cannot vote Again!."})
+    }
+
     const tx = await DAOHandler.methods
-      .registerationForNGO(ngoRegisterationNo, address)
+      .voteForNGO(ngoRegisterationNo, address)
       .send({
         from: account.address,
         gas: await web3.eth.estimateGas({
           from: account.address,
           to: contractAddress,
           data: DAOHandler.methods
-            .registerationForNGO(ngoRegisterationNo, address)
+            .voteForNGO(ngoRegisterationNo, address)
             .encodeABI(),
         }),
       });
@@ -65,6 +79,7 @@ export default async function handler(req, res) {
       transactionHash: tx.transactionHash,
       RegisterationNo: ngoRegisterationNo,
       Address: address,
+      VotedInfavor:true
     });
   } catch (error) {
     console.error("Transaction Error:", error);
