@@ -9,7 +9,7 @@ const web3 = new Web3(new Web3.providers.HttpProvider(providerURL));
 const DAOHandler = new web3.eth.Contract(DAOhandlerApi.abi, contractAddress);
 
 export default async function handler(req, res) {
-  const { ngoNumber } = req.query;
+  const { ngoRegisterationNo } = req.query;
 
   if (req.method !== "GET") {
     return res
@@ -18,15 +18,15 @@ export default async function handler(req, res) {
       .end(`Method ${req.method} Not Allowed`);
   }
 
-  if (!ngoNumber) {
-    return res.status(400).json({ error: "NGO registeration Number is required." });
+  if (!ngoRegisterationNo) {
+    return res.status(400).json({ error: "Registeration No is required." });
   }
 
   try {
-    const ifExist = await DAOHandler.methods.ngoNumberExist(ngoNumber).call();
-    return res
-      .status(200)
-      .json({ngoExists: ifExist });
+    const ifExist = await DAOHandler.methods
+      .registeredNGOs(ngoRegisterationNo)
+      .call();
+    return res.status(200).json({ngoExists: ifExist });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: error.message });
