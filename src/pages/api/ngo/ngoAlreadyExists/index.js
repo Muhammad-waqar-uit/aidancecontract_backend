@@ -23,9 +23,8 @@ export default async function handler(req, res) {
       .status(400)
       .json({ error: "Address is required." });
   }
-
   try {
-    const ifExist = await DAOHandler.methods.ngoRegisterationNo(address).call();
+    const ifExist = await DAOHandler.methods.ngoRegistrationNo(address).call();
     return res.status(200).json({ Address: address,ngoExist: ifExist });
   } catch (error) {
     console.error(error);
