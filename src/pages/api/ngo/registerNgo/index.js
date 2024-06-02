@@ -26,9 +26,27 @@ export default async function handler(req, res) {
       .json({ error: "NGO registration number and address are required." });
   }
 
+  
+
   try {
     const DAOHandler = new web3.eth.Contract(contractABI, contractAddress);
 
+
+    const ifExist = await DAOHandler.methods
+      .ngoNumberExist(ngoRegisterationNo)
+      .call();
+    const ifAddressExist = await DAOHandler.methods
+      .ngoRegistrationNo(address)
+      .call();
+    const ngoExist = ifAddressExist !== "0";
+
+
+    if (ifExist || ngoExist) {
+      return res.status(400).json({
+          error: "NGO registration number or address already exists.",
+        });
+    }
+    
     const tx = await DAOHandler.methods
       .registerationForNGO(ngoRegisterationNo, address)
       .send({
