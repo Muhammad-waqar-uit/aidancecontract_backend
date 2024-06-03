@@ -36,15 +36,21 @@ export default async function handler(req, res) {
     const ifAddressExist = await DAOHandler.methods
       .ngoRegistrationNo(address)
       .call();
-    const ngoExist = ifAddressExist !== "0";
 
+    console.log("if Exist", ifExist);
+    console.log("ifAddressExist", ifAddressExist);
+    // Convert ifAddressExist from BigInt to Number for comparison
+    const ifAddressExistAsNumber = Number(ifAddressExist);
 
-    if (ifExist || ngoExist) {
+    console.log("ifAddress Exist as number",ifAddressExistAsNumber);
+    const ngoExist = ifExist || ifAddressExistAsNumber !== 0; // Adjust comparison
+    console.log("check one ", ngoExist);
+    if (ngoExist) {
       return res.status(400).json({
-          error: "NGO registration number or address already exists.",
-        });
+        error: "NGO registration number or address already exists.",
+      });
     }
-    
+
     const tx = await DAOHandler.methods
       .registerationForNGO(ngoRegisterationNo, address)
       .send({
