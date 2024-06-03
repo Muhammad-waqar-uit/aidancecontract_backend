@@ -7,6 +7,7 @@ const providerURL = process.env.RPC_URL; // Your RPC URL
 const privateKey = process.env.SuperPrivateKey; // Your private key
 const contractAddress = process.env.DAO_Token_Contract; // Your contract address
 const contractABI = DAOhandlerApi.abi;
+const TokenContractAddress = process.env.Vote_Token_Contract;
 
 // Initialize Web3
 const web3 = new Web3(new Web3.providers.HttpProvider(providerURL));
@@ -28,8 +29,10 @@ export default async function handler(req, res) {
 
   try {
     const DAOHandler = new web3.eth.Contract(contractABI, contractAddress);
-    const tokenContract = new web3.eth.Contract(TokenAPI.abi, contractAddress);
-
+    const tokenContract = new web3.eth.Contract(
+      TokenAPI.abi,
+      TokenContractAddress
+    );
     const ifExist = await DAOHandler.methods
       .ngoNumberExist(ngoRegisterationNo)
       .call();
@@ -43,14 +46,14 @@ export default async function handler(req, res) {
     const balance = await tokenContract.methods.balanceOf(address).call();
     const balanceInEther = web3.utils.fromWei(balance, "ether");
 
-    if (parseFloat(balanceInEther) < 1) {
+    if (Number(balanceInEther) < 1) {
       return res
         .status(400)
         .json({ error: "Balance must be atleast 1 token or greater." });
     }
 
     const ifVoted = await DAOHandler.methods
-      .ngoVoters(address, ngoNumber)
+      .ngoVoters(address, ngoRegisterationNo)
       .call();
 
     if (ifVoted) {
