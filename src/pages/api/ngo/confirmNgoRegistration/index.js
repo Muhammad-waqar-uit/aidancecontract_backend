@@ -42,6 +42,8 @@ export default async function handler(req, res) {
     const ifNgoAccepted = await DAOHandler.methods
           .registeredNGOs(ngoRegisterationNo)
           .call();
+
+
     if(ifNgoAccepted){
       return res.status(400).json({
         error:"Ngo is already Accepted!."
@@ -55,12 +57,31 @@ export default async function handler(req, res) {
     const totalInfavorsVote = await DAOHandler.methods
       .infavourVotes(ngoRegisterationNo)
       .call();
+    console.log("total against vote", totalAgainstVote, totalInfavorsVote);
 
-    if (parseInt(totalInfavorsVote) <= parseInt(totalAgainstVote)) {
+    const totalInfavorsVoteNumber = Number(totalInfavorsVote);
+    const totalAgainstVoteNumber = Number(totalAgainstVote);
+    console.log(
+      "total against vote",
+      totalInfavorsVoteNumber,
+      totalAgainstVoteNumber
+    );
+
+
+      if (totalInfavorsVoteNumber === 0 && totalAgainstVoteNumber === 0) {
+        return res.status(400).json({
+          error: "Both in favour and against votes are zero.",
+          totalInfavorsVoteNumber,
+          totalAgainstVoteNumber,
+        });
+      }
+
+
+    if (totalInfavorsVoteNumber <= totalAgainstVoteNumber) {
       return res.status(400).json({
         error: "In favour votes must be greater than against votes.",
-        totalInfavorsVote,
-        totalAgainstVote,
+        totalInfavorsVoteNumber,
+        totalAgainstVoteNumber
       });
     }
 
