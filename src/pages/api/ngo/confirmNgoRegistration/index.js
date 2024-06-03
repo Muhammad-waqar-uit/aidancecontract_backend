@@ -50,10 +50,10 @@ export default async function handler(req, res) {
 
 
     const totalAgainstVote = await DAOHandler.methods
-          .againstVotes(ngoNumber)
-          .call();
+      .againstVotes(ngoRegisterationNo)
+      .call();
     const totalInfavorsVote = await DAOHandler.methods
-      .infavourVotes(ngoNumber)
+      .infavourVotes(ngoRegisterationNo)
       .call();
 
     if (parseInt(totalInfavorsVote) <= parseInt(totalAgainstVote)) {
