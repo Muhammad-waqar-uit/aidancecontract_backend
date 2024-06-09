@@ -26,7 +26,7 @@ export default async function handler(req, res) {
 
   try {
     const ifVoted = await DAOHandler.methods.ngoVoters(address,ngoNumber).call();
-    return res.status(200).json({ ngoExists: ifVoted });
+    return res.status(200).json({ AlreadyVoted: ifVoted });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: error.message });

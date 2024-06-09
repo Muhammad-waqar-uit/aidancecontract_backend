@@ -26,7 +26,7 @@ export default async function handler(req, res) {
     const ifExist = await DAOHandler.methods
       .registeredNGOs(ngoRegisterationNo)
       .call();
-    return res.status(200).json({ngoExists: ifExist });
+    return res.status(200).json({ngoAccepted: ifExist });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: error.message });
