@@ -96,9 +96,8 @@ export default async function handler(req, res) {
       });
 
     console.log("Transaction Receipt:", tx);
-
-    const event = tx.events.ProposalCreated;
-    const tokenId = event ? event.returnValues.tokenId : null;
+    
+    const tokenId = await DAOHandler.methods._tokenIds().call();
 
     return res.status(200).json({
       message: "Transaction successful",
