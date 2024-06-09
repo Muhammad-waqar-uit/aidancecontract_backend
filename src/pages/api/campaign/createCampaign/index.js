@@ -104,7 +104,7 @@ export default async function handler(req, res) {
       transactionHash: tx.transactionHash,
       registrationNo: ngoRegisterationNo,
       address: address,
-      tokenId: tokenId,
+      tokenId: tokenId.toString(),
     });
   } catch (error) {
     console.error("Transaction Error:", error);
