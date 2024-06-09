@@ -32,7 +32,7 @@ export default async function handler(req, res) {
     // Convert UNIX timestamp to a date object and format it for Karachi time
     const endDate = moment.unix(endTimeNumber).tz("Asia/Karachi");
     const readableDate = endDate.format("YYYY-MM-DD HH:mm:ss.SS");
-
+    console.log(endDate);
     res
       .status(200)
       .json({ campaignId: campaignId.toString(), endTime: readableDate });
