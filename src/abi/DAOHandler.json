@@ -385,6 +385,13 @@
     },
     {
       "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "name": "acceptedCampaigns",
+      "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
       "name": "againstVotes",
       "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
       "stateMutability": "view",
@@ -411,6 +418,54 @@
     },
     {
       "inputs": [
+        { "internalType": "address", "name": "", "type": "address" },
+        { "internalType": "uint256", "name": "", "type": "uint256" }
+      ],
+      "name": "beneficiaryHasVoucherInCampaign",
+      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "name": "campaignAgainstVotes",
+      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "name": "campaignEndTime",
+      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "name": "campaignFavourVotes",
+      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        { "internalType": "address", "name": "", "type": "address" },
+        { "internalType": "uint256", "name": "", "type": "uint256" }
+      ],
+      "name": "campaignvoters",
+      "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "name": "claimedFunds",
+      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
         {
           "internalType": "uint256",
           "name": "_ngoRegisterationNO",
@@ -419,6 +474,36 @@
       ],
       "name": "confirmRegisteration",
       "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_votinghours",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_totalBeneficiary",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_ngoRegisterationNO",
+          "type": "uint256"
+        },
+        { "internalType": "string", "name": "_tokenURI", "type": "string" },
+        {
+          "internalType": "uint256",
+          "name": "_max_Donation",
+          "type": "uint256"
+        },
+        { "internalType": "address", "name": "_user", "type": "address" }
+      ],
+      "name": "createProposal",
+      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
       "stateMutability": "nonpayable",
       "type": "function"
     },
@@ -449,9 +534,26 @@
       "type": "function"
     },
     {
+      "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "name": "maxCampaignDonation",
+      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
       "inputs": [],
       "name": "name",
       "outputs": [{ "internalType": "string", "name": "", "type": "string" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        { "internalType": "uint256", "name": "", "type": "uint256" },
+        { "internalType": "uint256", "name": "", "type": "uint256" }
+      ],
+      "name": "ngoAllCampaigns",
+      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
       "stateMutability": "view",
       "type": "function"
     },
@@ -487,6 +589,13 @@
       "type": "function"
     },
     {
+      "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "name": "ngototalBeneficiary",
+      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
       "inputs": [],
       "name": "owner",
       "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
@@ -504,6 +613,23 @@
     },
     {
       "inputs": [
+        { "internalType": "address", "name": "", "type": "address" },
+        { "internalType": "uint256", "name": "", "type": "uint256" }
+      ],
+      "name": "priceOfVoucher",
+      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "name": "recieved_Donation",
+      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
         {
           "internalType": "uint256",
           "name": "_ngoRegisterationNO",
@@ -514,6 +640,13 @@
       "name": "registerationForNGO",
       "outputs": [],
       "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "name": "registeredCampaign",
+      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "stateMutability": "view",
       "type": "function"
     },
     {
@@ -610,6 +743,16 @@
     },
     {
       "inputs": [
+        { "internalType": "uint256", "name": "_tokenId", "type": "uint256" },
+        { "internalType": "address", "name": "_user", "type": "address" }
+      ],
+      "name": "voteAgainstCampaign",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
         {
           "internalType": "uint256",
           "name": "_ngoRegisterationNO",
@@ -618,6 +761,16 @@
         { "internalType": "address", "name": "_userAddress", "type": "address" }
       ],
       "name": "voteAgainstNGO",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        { "internalType": "uint256", "name": "_tokenId", "type": "uint256" },
+        { "internalType": "address", "name": "_user", "type": "address" }
+      ],
+      "name": "voteForCampaign",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
