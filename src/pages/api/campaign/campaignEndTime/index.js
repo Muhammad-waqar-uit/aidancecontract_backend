@@ -1,5 +1,6 @@
 import Web3 from "web3";
 import DAOhandlerApi from "../../../../abi/DAOHandler.json";
+import moment from "moment-timezone";
 
 const providerURL = process.env.RPC_URL; // Your RPC URL
 const privateKey = process.env.SuperPrivateKey; // Your private key
@@ -28,8 +29,9 @@ export default async function handler(req, res) {
     // Convert BigInt to a regular number for further processing
     const endTimeNumber = Number(endTime);
 
-    const endDate = new Date(endTimeNumber * 1000); // Convert UNIX timestamp to JavaScript Date object
-    const readableDate = endDate.toLocaleString(); // Convert to local date and time string
+    // Convert UNIX timestamp to a date object and format it for Karachi time
+    const endDate = moment.unix(endTimeNumber).tz("Asia/Karachi");
+    const readableDate = endDate.format("YYYY-MM-DD HH:mm:ss");
 
     res
       .status(200)
