@@ -29,13 +29,15 @@ export default async function handler(req, res) {
     // Convert BigInt to a regular number for further processing
     const endTimeNumber = Number(endTime);
 
-    // Convert UNIX timestamp to a date object and format it for Karachi time
-    const endDate = moment.unix(endTimeNumber).tz("Asia/Karachi");
-    const readableDate = endDate.format("YYYY-MM-DD HH:mm:ss.SS");
-    console.log(endDate);
+    // Convert UNIX timestamp to a date object and apply GMT+5 offset
+    const endDate = moment.unix(endTimeNumber).utcOffset(5 * 60);
+
+    // Format the date
+    const formattedDate = endDate.format("YYYY-MM-DD HH:mm:ss.SS");
+
     res
       .status(200)
-      .json({ campaignId: campaignId.toString(), endTime: readableDate });
+      .json({ campaignId: campaignId.toString(), endTime: formattedDate });
   } catch (error) {
     console.error(error);
     res
