@@ -25,7 +25,7 @@ export default async function handler(req, res) {
   try {
     const contract = new web3.eth.Contract(contractABI, contractAddress);
     const totalBeneficiary = await contract.methods
-      .totalBeneficiary(campaignId)
+      .ngototalBeneficiary(campaignId)
       .call();
 
     res.status(200).json({ campaignId: campaignId, Total_Beneficiary: totalBeneficiary.toString() });

@@ -27,13 +27,12 @@ export default async function handler(req, res) {
     const maxDonation = await contract.methods
       .maxCampaignDonation(campaignId)
       .call();
+    const maxDonationInEth = web3.utils.fromWei(maxDonation.toString(), "ether");
 
-    res
-      .status(200)
-      .json({
-        campaignId: campaignId,
-        MaxCampaignDonation_Total: maxDonation.toString(),
-      });
+    res.status(200).json({
+      campaignId: campaignId,
+      MaxCampaignDonation_Total: `${maxDonationInEth.toString()} Matic`,
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({

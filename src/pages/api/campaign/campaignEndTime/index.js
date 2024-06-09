@@ -10,32 +10,36 @@ const contractABI = DAOhandlerApi.abi;
 const web3 = new Web3(new Web3.providers.HttpProvider(providerURL));
 const account = web3.eth.accounts.privateKeyToAccount(privateKey);
 web3.eth.accounts.wallet.add(account);
-export default async function handler(req, res) {
 
+export default async function handler(req, res) {
   const { campaignId } = req.query; // Assuming you will pass the campaign ID as a query parameter
 
- if (req.method !== "GET") {
-   return res.status(405).json({ error: `Method ${req.method} Not Allowed` });
- }
+  if (req.method !== "GET") {
+    return res.status(405).json({ error: `Method ${req.method} Not Allowed` });
+  }
   if (!campaignId) {
-    return res.status(400).json({
-      error:
-        "Campaign id is required.",
-    });
+    return res.status(400).json({ error: "Campaign id is required." });
   }
 
   try {
     const contract = new web3.eth.Contract(contractABI, contractAddress);
     const endTime = await contract.methods.campaignEndTime(campaignId).call();
 
-    const endDate = new Date(endTime * 1000); // Convert UNIX timestamp to JavaScript Date object
+    // Convert BigInt to a regular number for further processing
+    const endTimeNumber = Number(endTime);
+
+    const endDate = new Date(endTimeNumber * 1000); // Convert UNIX timestamp to JavaScript Date object
     const readableDate = endDate.toLocaleString(); // Convert to local date and time string
 
-    res.status(200).json({ campaignId: campaignId,endTime: readableDate });
+    res
+      .status(200)
+      .json({ campaignId: campaignId.toString(), endTime: readableDate });
   } catch (error) {
     console.error(error);
-    res.status(500).json({
-      error: "An error occurred while fetching the campaign end time.",
-    });
+    res
+      .status(500)
+      .json({
+        error: "An error occurred while fetching the campaign end time.",
+      });
   }
 }
