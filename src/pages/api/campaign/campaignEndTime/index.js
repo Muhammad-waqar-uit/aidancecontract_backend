@@ -29,7 +29,6 @@ export default async function handler(req, res) {
     // Convert BigInt to a regular number for further processing
     const endTimeNumber = Number(endTime);
 
-    // Convert UNIX timestamp to a date object and apply GMT+5 offset
     const endDate = moment.unix(endTimeNumber).utcOffset(5 * 60);
 
     // Format the date
