@@ -36,7 +36,7 @@ export default async function handler(req, res) {
   } catch (error) {
     console.error(error);
     res.status(500).json({
-      error: "An error occurred while fetching the campaign end time.",
+      error: "An error occurred while fetching the max campaign donation.",
     });
   }
 }
