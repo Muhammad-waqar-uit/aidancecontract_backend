@@ -89,21 +89,21 @@ export default async function handler(req, res) {
     // Add this snippet to check current time against campaign end time
     const currentTime = moment().utcOffset(5 * 60);
 
-    console.log("current time",currentTime)
+    console.log("current time", currentTime);
     if (currentTime.isAfter(endDate)) {
       return res.status(400).json({
         error: "Cannot vote, the campaign has ended.",
       });
     }
     const tx = await DAOHandler.methods
-      .voteForCampaign(campaignId, address)
+      .voteAgainstCampaign(campaignId, address)
       .send({
         from: account.address,
         gas: await web3.eth.estimateGas({
           from: account.address,
           to: contractAddress,
           data: DAOHandler.methods
-            .voteForCampaign(campaignId, address)
+            .voteAgainstCampaign(campaignId, address)
             .encodeABI(),
         }),
       });
@@ -115,7 +115,7 @@ export default async function handler(req, res) {
       transactionHash: tx.transactionHash,
       CampaignId: campaignId,
       Address: address,
-      VotedInFavor: true,
+      VotedAgainst: true,
     });
   } catch (error) {
     console.error("Transaction Error:", error);
