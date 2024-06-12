@@ -22,6 +22,22 @@ export default async function handler(req, res) {
   }
 
   try {
+    const DAOHandler = new web3.eth.Contract(contractABI, contractAddress);
+    const tokenIds = await DAOHandler.methods._tokenIds().call();
+
+       console.log("tokendIds",tokenIds.toString())
+       console.log("number tokenid",typeof Number(tokenIds.toString()))
+
+       console.log("number", Number(tokenIds.toString()) <= Number(campaignId));
+        
+  if (
+    Number(tokenIds.toString()) <= 0 ||
+    Number(tokenIds.toString()) <= Number(campaignId)
+  ) {
+    return res.status(400).json({
+      error: " campaign ID might not exist.",
+    });
+  }
 
     const ifTimeEnded = await DAOHandler.methods
       .isVotingPeriodEnded(campaignId)
