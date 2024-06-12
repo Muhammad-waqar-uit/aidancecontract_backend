@@ -14,13 +14,13 @@ const account = web3.eth.accounts.privateKeyToAccount(privateKey);
 web3.eth.accounts.wallet.add(account);
 
 export default async function handler(req, res) {
-  const { ngoRegisterationNo } = req.body;
+  const { campaignId } = req.body;
 
   if (req.method !== "POST") {
     return res.status(405).json({ error: `Method ${req.method} Not Allowed` });
   }
 
-  if (!ngoRegisterationNo) {
+  if (!campaignId) {
     return res
       .status(400)
       .json({ error: "NGO registration number is required." });

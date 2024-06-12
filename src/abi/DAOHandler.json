@@ -458,10 +458,34 @@
       "type": "function"
     },
     {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_beneficiary",
+          "type": "address"
+        },
+        { "internalType": "uint256", "name": "_campaignID", "type": "uint256" },
+        { "internalType": "address", "name": "_vendor", "type": "address" }
+      ],
+      "name": "claimFundsOfBeneficiary",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
       "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
       "name": "claimedFunds",
       "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
       "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        { "internalType": "uint256", "name": "_campaignID", "type": "uint256" }
+      ],
+      "name": "confirmAcceptCampaign",
+      "outputs": [],
+      "stateMutability": "nonpayable",
       "type": "function"
     },
     {
@@ -509,6 +533,22 @@
     },
     {
       "inputs": [
+        {
+          "internalType": "address",
+          "name": "_beneficiary",
+          "type": "address"
+        },
+        { "internalType": "uint256", "name": "_price", "type": "uint256" },
+        { "internalType": "string", "name": "_tokenURI", "type": "string" },
+        { "internalType": "uint256", "name": "_campaignID", "type": "uint256" }
+      ],
+      "name": "createVoucher",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
         { "internalType": "uint256", "name": "tokenId", "type": "uint256" }
       ],
       "name": "getApproved",
@@ -531,6 +571,24 @@
       "name": "isApprovedForAll",
       "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
       "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        { "internalType": "uint256", "name": "_tokenId", "type": "uint256" }
+      ],
+      "name": "isVotingPeriodEnded",
+      "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        { "internalType": "uint256", "name": "_campaignID", "type": "uint256" }
+      ],
+      "name": "makeDonation",
+      "outputs": [],
+      "stateMutability": "payable",
       "type": "function"
     },
     {
@@ -738,6 +796,25 @@
       ],
       "name": "transferOwnership",
       "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        { "internalType": "uint256", "name": "_campaignId", "type": "uint256" },
+        {
+          "internalType": "uint256",
+          "name": "_noOfBeneficiary",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_ngoRegisterationNO",
+          "type": "uint256"
+        }
+      ],
+      "name": "updateTotalBeneficary",
+      "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
       "stateMutability": "nonpayable",
       "type": "function"
     },
