@@ -25,31 +25,31 @@ export default async function handler(req, res) {
     const DAOHandler = new web3.eth.Contract(contractABI, contractAddress);
     const tokenIds = await DAOHandler.methods._tokenIds().call();
 
-       console.log("tokendIds",tokenIds.toString())
-       console.log("number tokenid",typeof Number(tokenIds.toString()))
+    const tokenIdsNumber = Number(tokenIds.toString());
+    const campaignIdNumber = Number(campaignId);
 
-       console.log("number", Number(tokenIds.toString()) <= Number(campaignId));
-        
-  if (
-    Number(tokenIds.toString()) <= 0 ||
-    Number(tokenIds.toString()) <= Number(campaignId)
-  ) {
-    return res.status(400).json({
-      error: " campaign ID might not exist.",
-    });
-  }
+    console.log("Token IDs:", tokenIdsNumber);
+    console.log("Campaign ID:", campaignIdNumber);
+
+    if (tokenIdsNumber <= 0) {
+      return res.status(400).json({ error: "No campaigns exist." });
+    }
+
+    if (campaignIdNumber <= 0 || campaignIdNumber > tokenIdsNumber) {
+      return res.status(400).json({ error: "Campaign ID does not exist." });
+    }
 
     const ifTimeEnded = await DAOHandler.methods
-      .isVotingPeriodEnded(campaignId)
+      .isVotingPeriodEnded(campaignIdNumber)
       .call();
-  //  isVotingPeriodEnded;
+
     res
       .status(200)
-      .json({ campaignId: campaignId, TimeEnded: ifTimeEnded });
+      .json({ campaignId: campaignIdNumber, TimeEnded: ifTimeEnded });
   } catch (error) {
-    console.error(error);
+    console.error("Error fetching campaign details:", error);
     res.status(500).json({
-      error: "An error occurred while fetching the voting period end or not.",
+      error: "An error occurred while fetching the voting period end status.",
     });
   }
 }
