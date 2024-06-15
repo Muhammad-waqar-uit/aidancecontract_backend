@@ -14,7 +14,7 @@ web3.eth.accounts.wallet.add(account);
 export default async function handler(req, res) {
   const { campaignId } = req.query; // Assuming you will pass the campaign ID as a query parameter
 
-  if (req.method !== "GET") {
+  if (req.method !== "POST") {
     return res.status(405).json({ error: `Method ${req.method} Not Allowed` });
   }
   if (!campaignId) {
