@@ -30,13 +30,26 @@ export default async function handler(req, res) {
 
     console.log("number", Number(tokenIds.toString()) <= Number(campaignId));
 
-    if (
-      Number(tokenIds.toString()) <= 0 ||
-      Number(tokenIds.toString()) <= Number(campaignId)
-    ) {
-      return res.status(400).json({
-        error: " campaign ID might not exist.",
-      });
+    // if (
+    //   Number(tokenIds.toString()) <= 0 ||
+    //   Number(tokenIds.toString()) <= Number(campaignId)
+    // ) {
+    //   return res.status(400).json({
+    //     error: " campaign ID might not exist.",
+    //   });
+    // }
+    const tokenIdsNumber = Number(tokenIds.toString());
+    const campaignIdNumber = Number(campaignId);
+
+    console.log("Token IDs:", tokenIdsNumber);
+    console.log("Campaign ID:", campaignIdNumber);
+
+    if (tokenIdsNumber <= 0) {
+          return res.status(400).json({ error: "No campaigns exist." });
+    }
+
+    if (campaignIdNumber <= 0 || campaignIdNumber > tokenIdsNumber) {
+          return res.status(400).json({ error: "Campaign ID does not exist." });
     }
 
     const ifTimeEnded = await DAOHandler.methods
