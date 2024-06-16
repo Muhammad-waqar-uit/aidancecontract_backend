@@ -3,11 +3,13 @@ import DAOhandlerApi from "../../../../abi/DAOHandler.json";
 
 const providerURL = process.env.RPC_URL;
 const contractAddress = process.env.DAO_Token_Contract;
-
+const privateKey = process.env.SuperPrivateKey;
 // Initialize Web3
 const web3 = new Web3(new Web3.providers.HttpProvider(providerURL));
 const DAOHandler = new web3.eth.Contract(DAOhandlerApi.abi, contractAddress);
 
+const account = web3.eth.accounts.privateKeyToAccount(privateKey);
+web3.eth.accounts.wallet.add(account);
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: `Method ${req.method} Not Allowed` });
@@ -66,14 +68,14 @@ export default async function handler(req, res) {
 
 
    const tx = await DAOHandler.methods
-     .createVoucher(beneficiaryAddress, price, campaignId, tokenUri)
+     .createVoucher(beneficiaryAddress, price, tokenUri, campaignId)
      .send({
        from: account.address,
        gas: await web3.eth.estimateGas({
          from: account.address,
          to: contractAddress,
          data: DAOHandler.methods
-           .createVoucher(beneficiaryAddress, price, campaignId, tokenUri)
+           .createVoucher(beneficiaryAddress, price, tokenUri, campaignId)
            .encodeABI(),
        }),
      });

@@ -1,7 +1,7 @@
 import Web3 from "web3";
 import { prisma } from "@/utils/db";
 import DAOhandlerApi from "../../../../abi/DAOHandler.json";
-
+import { parseEther } from "viem";
 const providerURL = process.env.RPC_URL;
 const contractAddress = process.env.DAO_Token_Contract;
 
@@ -57,17 +57,18 @@ export default async function handler(req, res) {
     // Fetch the nonce for the transaction
     const nonce = await web3.eth.getTransactionCount(senderAddress, "pending");
 
+      const ethamount=parseEther(amountWei);
     // Create the transaction object
     const txObject = {
       nonce: web3.utils.toHex(nonce),
       to: contractAddress,
       from: senderAddress,
       data: DAOHandler.methods.makeDonation(campaignId).encodeABI(),
-      value: web3.utils.toHex(amountWei),
+      value: web3.utils.toHex(ethamount),
       gas: web3.utils.toHex(
         await DAOHandler.methods
           .makeDonation(campaignId)
-          .estimateGas({ from: senderAddress, value: amountWei })
+          .estimateGas({ from: senderAddress, value: ethamount })
       ),
       gasPrice: web3.utils.toHex(await web3.eth.getGasPrice()),
     };

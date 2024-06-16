@@ -17,6 +17,7 @@
     "next": "14.2.3",
     "react": "^18",
     "react-dom": "^18",
+    "viem": "^2.14.2",
     "web3": "4.9.0"
   },
   "devDependencies": {

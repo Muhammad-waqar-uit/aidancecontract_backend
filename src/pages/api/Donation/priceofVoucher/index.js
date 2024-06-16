@@ -28,7 +28,7 @@ export default async function handler(req, res) {
     const price = await DAOHandler.methods
       .priceOfVoucher(address, campaignId)
       .call();
-    return res.status(200).json({ PriceOfVoucher: `${price.toString()} wei` });
+    return res.status(200).json({ PriceOfVoucher: `${price.toString()}` });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: error.message });
