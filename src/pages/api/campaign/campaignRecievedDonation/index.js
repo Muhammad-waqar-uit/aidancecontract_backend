@@ -34,7 +34,7 @@ export default async function handler(req, res) {
 
     res.status(200).json({
       campaignId: campaignId,
-      MaxRecievedDonation_Total: `${maxDonationInEth.toString()} Matic`,
+      MaxRecievedDonation_Total: `${maxDonationInEth.toString()} Wei`,
     });
   } catch (error) {
     console.error(error);

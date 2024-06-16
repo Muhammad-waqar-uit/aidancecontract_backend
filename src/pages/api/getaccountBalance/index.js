@@ -18,7 +18,7 @@ export default async function handler(req, res) {
         .json({ error: `Method ${req.method} Not Allowed` });
     }
     if (!address) {
-      return res.status(400).json({ error: "Campaign id is required." });
+      return res.status(400).json({ error: "address is required." });
     }
 
   try {
