@@ -21,7 +21,7 @@ export default async function handler(req, res) {
   if (!campaignId ) {
     return res
       .status(400)
-      .json({ error: "Campaign Id and Address is required." });
+      .json({ error: "Campaign Id is required." });
   }
 
   try {
