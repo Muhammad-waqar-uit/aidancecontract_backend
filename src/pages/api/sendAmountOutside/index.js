@@ -1,4 +1,5 @@
 import { prisma } from "@/utils/db";
+import { parseEther } from "viem";
 import Web3 from "web3";
 
 export default async function handler(req, res) {
@@ -51,12 +52,17 @@ export default async function handler(req, res) {
       });
     }
 
+
+    const ethamountone = parseEther(amountWei);
+
+    const ethamount = Number(ethamountone);
+
     // Create and sign the transaction
     const nonce = await web3.eth.getTransactionCount(senderAddress);
     const transaction = {
       from: senderAddress,
       to: recipientAddress,
-      value: amountWei,
+      value: ethamount,
       gas: gasEstimate,
       gasPrice: gasPrice,
       nonce: nonce,

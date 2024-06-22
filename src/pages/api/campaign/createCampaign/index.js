@@ -68,7 +68,9 @@ export default async function handler(req, res) {
     }
 
 
-    const ethamount = parseEther(maxDonation);
+    const ethamountone = parseEther(maxDonation);
+
+    const ethamount = Number(ethamountone);
 
     const gasEstimate = await web3.eth.estimateGas({
       from: account.address,
@@ -91,7 +93,7 @@ export default async function handler(req, res) {
         totalBeneficiary,
         ngoRegisterationNo,
         tokenUri,
-        maxDonation,
+        ethamount,
         address
       )
       .send({
@@ -110,6 +112,7 @@ export default async function handler(req, res) {
       address: address,
       tokenId: tokenId.toString(),
     });
+
   } catch (error) {
     console.error("Transaction Error:", error);
     return res
