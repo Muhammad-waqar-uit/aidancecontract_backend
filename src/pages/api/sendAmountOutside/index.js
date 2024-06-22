@@ -33,12 +33,14 @@ export default async function handler(req, res) {
     const senderBalanceWei = await web3.eth.getBalance(senderAddress);
     const senderBalanceWeiString = senderBalanceWei.toString(); // Convert BigInt to string
 
+    const ethamountone = parseEther(amountWei);
+    const ethamounttwo = Number(ethamountone);
     // Estimate gas fee
     const gasPrice = await web3.eth.getGasPrice();
     const gasEstimate = await web3.eth.estimateGas({
       from: senderAddress,
       to: recipientAddress,
-      value: amountWei,
+      value: ethamounttwo,
     });
     const gasEstimateString = gasEstimate.toString(); // Convert BigInt to string
     const gasPriceString = gasPrice.toString(); // Convert BigInt to string
@@ -46,23 +48,18 @@ export default async function handler(req, res) {
     const totalGasFeeWei = BigInt(gasPrice) * BigInt(gasEstimate);
     const totalGasFeeWeiString = totalGasFeeWei.toString(); // Convert BigInt to string
 
-    if (BigInt(senderBalanceWei) < BigInt(amountWei) + totalGasFeeWei) {
+    if (BigInt(senderBalanceWei) < BigInt(ethamounttwo) + totalGasFeeWei) {
       return res.status(400).json({
         error: "Insufficient balance to cover the transaction and gas fees.",
       });
     }
-
-
-    const ethamountone = parseEther(amountWei);
-
-    const ethamount = Number(ethamountone);
 
     // Create and sign the transaction
     const nonce = await web3.eth.getTransactionCount(senderAddress);
     const transaction = {
       from: senderAddress,
       to: recipientAddress,
-      value: ethamount,
+      value: ethamounttwo,
       gas: gasEstimate,
       gasPrice: gasPrice,
       nonce: nonce,
@@ -77,11 +74,11 @@ export default async function handler(req, res) {
     const receipt = await web3.eth.sendSignedTransaction(
       signedTx.rawTransaction
     );
-    const receiptHash= receipt.transactionHash;
+    const receiptHash = receipt.transactionHash;
     // Convert BigInts to strings in the response
     res.status(200).json({
       success: true,
-      hash:receiptHash,
+      hash: receiptHash,
       senderBalanceWei: senderBalanceWeiString,
       gasEstimate: gasEstimateString,
       gasPrice: gasPriceString,
