@@ -1,5 +1,6 @@
 import Web3 from "web3";
 import DAOhandlerApi from "../../../../abi/DAOHandler.json";
+import { parseEther } from "viem";
 
 const providerURL = process.env.RPC_URL; // Your RPC URL
 const privateKey = process.env.SuperPrivateKey; // Your private key
@@ -66,6 +67,9 @@ export default async function handler(req, res) {
       });
     }
 
+
+    const ethamount = parseEther(maxDonation);
+
     const gasEstimate = await web3.eth.estimateGas({
       from: account.address,
       to: contractAddress,
@@ -75,7 +79,7 @@ export default async function handler(req, res) {
           totalBeneficiary,
           ngoRegisterationNo,
           tokenUri,
-          maxDonation,
+          ethamount,
           address
         )
         .encodeABI(),
