@@ -48,35 +48,35 @@ export default async function handler(req, res) {
       .isVotingPeriodEnded(campaignId)
       .call();
 
-    if (!ifTimeEnded){
-       return res.status(400).json({
-         error: " Voting time not Ended",
-       });
-    }
+    // if (!ifTimeEnded){
+    //    return res.status(400).json({
+    //      error: " Voting time not Ended",
+    //    });
+    // }
 
- const totalAgainstVote = await DAOHandler.methods
-   .campaignAgainstVotes(campaignId)
-   .call();
- const totalInfavorsVote = await DAOHandler.methods
-   .campaignFavourVotes(campaignId)
-   .call();
- console.log("total against vote", totalAgainstVote, totalInfavorsVote);
+      const totalAgainstVote = await DAOHandler.methods
+        .campaignAgainstVotes(campaignId)
+        .call();
+      const totalInfavorsVote = await DAOHandler.methods
+        .campaignFavourVotes(campaignId)
+        .call();
+      console.log("total against vote", totalAgainstVote, totalInfavorsVote);
 
- const totalInfavorsVoteNumber = Number(totalInfavorsVote);
- const totalAgainstVoteNumber = Number(totalAgainstVote);
- console.log(
-   "total against vote",
-   totalInfavorsVoteNumber,
-   totalAgainstVoteNumber
- );
+      const totalInfavorsVoteNumber = Number(totalInfavorsVote);
+      const totalAgainstVoteNumber = Number(totalAgainstVote);
+      console.log(
+        "total against vote",
+        totalInfavorsVoteNumber,
+        totalAgainstVoteNumber
+      );
 
- if (totalInfavorsVoteNumber === 0 && totalAgainstVoteNumber === 0) {
-   return res.status(400).json({
-     error: "Both in favour and against votes are zero.",
-     totalInfavorsVoteNumber,
-     totalAgainstVoteNumber,
-   });
- }
+        if (totalInfavorsVoteNumber === 0 && totalAgainstVoteNumber === 0) {
+          return res.status(400).json({
+            error: "Both in favour and against votes are zero.",
+            totalInfavorsVoteNumber,
+            totalAgainstVoteNumber,
+          });
+        }
 
       if (totalInfavorsVoteNumber <= totalAgainstVoteNumber) {
         return res.status(400).json({

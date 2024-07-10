@@ -90,11 +90,11 @@ export default async function handler(req, res) {
     const currentTime = moment().utcOffset(5 * 60);
 
     console.log("current time",currentTime)
-    if (currentTime.isAfter(endDate)) {
-      return res.status(400).json({
-        error: "Cannot vote, the campaign has ended.",
-      });
-    }
+    // if (currentTime.isAfter(endDate)) {
+    //   return res.status(400).json({
+    //     error: "Cannot vote, the campaign has ended.",
+    //   });
+    // }
     const tx = await DAOHandler.methods
       .voteForCampaign(campaignId, address)
       .send({
