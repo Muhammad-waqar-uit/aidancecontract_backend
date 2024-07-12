@@ -13,7 +13,9 @@ const TokenContractAddress = process.env.Vote_Token_Contract;
 const web3 = new Web3(new Web3.providers.HttpProvider(providerURL));
 const account = web3.eth.accounts.privateKeyToAccount(privateKey);
 web3.eth.accounts.wallet.add(account);
-
+export const config = {
+  maxDuration: 60,
+};
 export default async function handler(req, res) {
   const { ngoRegisterationNo, address } = req.body;
 

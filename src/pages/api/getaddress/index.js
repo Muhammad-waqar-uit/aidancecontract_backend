@@ -1,7 +1,9 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { ethers } from "ethers";
 import { prisma } from "@/utils/db";
-
+export const config = {
+  maxDuration: 60,
+};
 export default async function handler(req, res) {
   try {
     const words = process.env.SeedPhrase;

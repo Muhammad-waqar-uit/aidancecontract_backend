@@ -1,7 +1,9 @@
 import { prisma } from "@/utils/db";
 import { parseEther } from "viem";
 import Web3 from "web3";
-
+export const config = {
+  maxDuration: 60,
+};
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: `Method ${req.method} Not Allowed` });

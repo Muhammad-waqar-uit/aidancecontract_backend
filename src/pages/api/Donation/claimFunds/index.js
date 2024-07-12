@@ -9,6 +9,11 @@ const web3 = new Web3(new Web3.providers.HttpProvider(providerURL));
 const DAOHandler = new web3.eth.Contract(DAOhandlerApi.abi, contractAddress);
 const account = web3.eth.accounts.privateKeyToAccount(privateKey);
 web3.eth.accounts.wallet.add(account);
+
+export const config = {
+  maxDuration: 60,
+};
+
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: `Method ${req.method} Not Allowed` });

@@ -5,7 +5,9 @@ const providerURL = process.env.RPC_URL; // Your RPC URL
 const privateKey = process.env.SuperPrivateKey; // Your private key
 const contractAddress = process.env.DAO_Token_Contract; // Your contract address
 const contractABI = DAOhandlerApi.abi;
-
+export const config = {
+  maxDuration: 60,
+};
 // Initialize Web3
 const web3 = new Web3(new Web3.providers.HttpProvider(providerURL));
 const account = web3.eth.accounts.privateKeyToAccount(privateKey);

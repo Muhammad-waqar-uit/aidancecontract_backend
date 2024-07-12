@@ -11,7 +11,9 @@ const contractABI = DAOhandlerApi.abi;
 const web3 = new Web3(new Web3.providers.HttpProvider(providerURL));
 const account = web3.eth.accounts.privateKeyToAccount(privateKey);
 web3.eth.accounts.wallet.add(account);
-
+export const config = {
+  maxDuration: 60,
+};
 export default async function handler(req, res) {
   const { campaignId } = req.query; // Assuming you will pass the campaign ID as a query parameter
 

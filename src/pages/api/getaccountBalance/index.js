@@ -9,6 +9,10 @@ const web3 = new Web3(new Web3.providers.HttpProvider(providerURL));
  * @param {string} address - The address to get the balance for.
  * @returns {Promise<string>} - The balance in Ether.
  */
+
+export const config = {
+  maxDuration: 60,
+};
 export default async function handler(req, res) {
     const { address } = req.query; // Assuming you will pass the campaign ID as a query parameter
 

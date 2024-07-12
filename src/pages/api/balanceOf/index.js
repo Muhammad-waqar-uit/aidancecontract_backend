@@ -8,6 +8,10 @@ const contractAddress = process.env.Vote_Token_Contract;
 const web3 = new Web3(new Web3.providers.HttpProvider(providerURL));
 const tokenContract = new web3.eth.Contract(TokenAPI.abi, contractAddress);
 
+export const config = {
+  maxDuration: 60,
+};
+
 export default async function handler(req, res) {
   const { address } = req.query;
 

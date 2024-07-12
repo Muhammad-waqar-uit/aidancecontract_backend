@@ -7,7 +7,9 @@ const contractAddress = process.env.DAO_Token_Contract;
 // Initialize Web3
 const web3 = new Web3(new Web3.providers.HttpProvider(providerURL));
 const DAOHandler = new web3.eth.Contract(DAOhandlerApi.abi, contractAddress);
-
+export const config = {
+  maxDuration: 60,
+};
 export default async function handler(req, res) {
   const { ngoRegNo } = req.query;
 
